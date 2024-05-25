@@ -37,7 +37,13 @@ target_proto_addr - ip address of the destination.
 1. Higher layer such as IP would want to send out a frame to a destination.
 2. IP queries for Mac address of the destination in the ARP cache.
 3. If a matching mac for a given IP is hit, it is returned to the IP. No ARP queries will be sent here.
-4. If there is no match is found, ARP layer would initiate an ARP request frame.
+4. If there is no match, ARP layer would initiate an ARP request frame.
+    1. The target_hw_addr will be all 0s.
+    2. The target_proto_addr will be the destination address. 
 5. If a destination is found, the host would receive an ARP reply containing the destination mac address.
+    1. Here the destination would update its ARP table if the sender's ip and mac address mapping has been done.
+    2. If the ip and mac address mapping is not done, the destination would add the sender in its ARP table.
+    3. The destination mac and ip addresses will now be in the sender_hw_addr and sender_proto_addr of ARP reply. 
 6. ARP will update its cache, notify IP layer that a destination mac is found.
 7. IP layer would then fill in the destination address in the frame and sends out the packet.
+
