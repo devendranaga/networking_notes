@@ -10,6 +10,7 @@ struct arp_hdr {
     u16 protocol_type;
     u8 ha_len;
     u8 protocol_addr_len;
+    u16 operation;
     u8 sender_hw_addr[6];
     u32 sender_proto_addr;
     u8 target_hw_addr[6];
@@ -24,15 +25,17 @@ Also, a listening device can capture and take note of what systems are on the LA
 Below are the typical settings for an ARP frame:
 
 hwtype is mostly ethernet (1) for Ethernet based networks.
-protocol_type is 0x0800 - ipv4.
-ha_len - mac address length (6).
-protocol_addr_len - 4.
-sender_hw_addr - mac address of the sending device.
-sender_proto_addr - ip address of the sender.
-target_hw_addr - mac address of the destination device.
-target_proto_addr - ip address of the destination.
 
-## Typical frame exchange format
+- protocol_type is 0x0800 - ipv4.
+- ha_len - mac address length (6).
+- protocol_addr_len - 4.
+- operation - 1 for ARP request and 2 for ARP reply.
+- sender_hw_addr - mac address of the sending device.
+- sender_proto_addr - ip address of the sender.
+- target_hw_addr - mac address of the destination device.
+- target_proto_addr - ip address of the destination.
+
+## Typical frame exchange behavior
 
 1. Higher layer such as IP would want to send out a frame to a destination.
 2. IP queries for Mac address of the destination in the ARP cache.
@@ -47,3 +50,8 @@ target_proto_addr - ip address of the destination.
 6. ARP will update its cache, notify IP layer that a destination mac is found.
 7. IP layer would then fill in the destination address in the frame and sends out the packet.
 
+## Gratituous ARP
+
+Gratituous ARP is initiated by the device without having an ARP request.
+
+The device sets the operation as ARP Reply, sets its sender mac and ip addresses, sets its destination ip address as the sender ip address and the destination mac can either be all 0s and all Fs.
