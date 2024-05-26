@@ -11,3 +11,7 @@ In case of IPv4:
 3. Receiving router might reject with ICMP Fragmentation needed frame (Type 3 and code 4).
 4. The sending router will readjust the MTU and sends out the frame.
 5. This process will be repeated until the right MTU is found.
+
+Once an MTU is found, the fragmentation can be avoided.
+
+However, this also means that host must know about the maximum transmission unit before sending large payload down to the TCP/IP stack. If the host does not know the MTU and would still want to send huge payloads, the fragmentation will be inevitable.
