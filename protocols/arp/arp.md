@@ -2,6 +2,20 @@
 
 ARP allows one device to discover the destination device's physical address on a LAN. This is done with a series of ARP queries followed by an ARP reply from the destionation device. If there is no destination device, there wouldn't be any reply.
 
+```c
+|<--- 2 ----->|<----- 2 ----->|<---- 1 ---->|<---- 1 ---->
+| Hw type     | Protocol Type | HA Length   | PA Length   |
+|<--------------------------->|<--------------------------|
+| protocol operation          |  sender mac address[0,1]  |
+|-----------------------------|---------------------------|
+| sender mac address [2,3,4,5]| sender proto address      |
+|-------------|--------------------------------------------
+| cont.       |             target mac address            |
+|-------------|-------------------------------------------|
+| cont.       |        target proto address               |
+|---------------------------------------------------------|
+```
+
 Typical ARP header looks like the following in C.
 
 ```c
