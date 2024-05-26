@@ -15,3 +15,9 @@ In case of IPv4:
 Once an MTU is found, the fragmentation can be avoided.
 
 However, this also means that host must know about the maximum transmission unit before sending large payload down to the TCP/IP stack. If the host does not know the MTU and would still want to send huge payloads, the fragmentation will be inevitable.
+
+### Issues
+
+Some firewalls silently drop ICMP code 3 and 2 and the sender might not be able to calculate the MTU. Solution is to add the allow rule for PMTU discovery in the firewall.
+
+To work around this problem, some routers clamp the TCP MSS to below Ethernet MTU which is 1500. This is called <i>MSS Clamping</i>.
