@@ -69,3 +69,29 @@ hwtype is mostly ethernet (1) for Ethernet based networks.
 Gratituous ARP is initiated by the device without having an ARP request.
 
 The device sets the operation as ARP Reply, sets its sender mac and ip addresses, sets its destination ip address as the sender ip address and the destination mac can either be all 0s and all Fs.
+
+
+Every destination that host has communciated to, the host keeps the cache of the destination mac and the corresponding ipv4 address.
+It also keeps a lifetime of the entry. Meaning that, ARP entries can expire since the hosts may come and go on to a network as well.
+Sometimes, the host may get a different ip address or the Mac address of the host is changed (by a user / software).
+
+A typical ARP entry would look like as follows,
+
+```c
+
+struct arp_entry {
+    uint8_t dest_mac[6];
+    uint32_t dest_ipaddr;
+    uint32_t lifetime_sec;
+    uint32_t arp_state;
+};
+```
+
+`arp_state` notes the type of entry. Entry can be either `Resolved` or `InProgress`.
+
+## Attacks on ARP protocol
+
+ARP spoofing is one of most known attack that allows an attacker to spoof a device's ipaddress and act as the "real" destination by manipulating the device's ARP table. Once a spoof message has been sent, the sender would direct traffic to the spoofed destination thus letting the attacker listen / consume / utilize the traffic for other purposes. 
+
+Generally to avoid this, there are little or no solution. Generally the receiver must assume that a spoof must happen within a specific window to detect and block the traffic. The sender could change Mac addresses everytime they boot / initialize traffic / come out of sleep. This helps avoid getting spoofed or let an attacker "learn" about hardware macaddress early on using the data before. 
+
