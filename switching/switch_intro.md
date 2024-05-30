@@ -25,3 +25,6 @@ Layer 2 has both control and data plane protocols. Below are the list of control
 | 2 | MACsec | Data Plane |
 | 3 | PTP | Control Plane |
 | 4 | AVTP | Data Plane |
+| 5 | VLAN | Virtual LAN |
+| 6 | QinQ | Tunneling protocol |
+
