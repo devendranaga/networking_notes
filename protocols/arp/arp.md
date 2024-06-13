@@ -93,5 +93,27 @@ struct arp_entry {
 
 ARP spoofing is one of most known attack that allows an attacker to spoof a device's ipaddress and act as the "real" destination by manipulating the device's ARP table. Once a spoof message has been sent, the sender would direct traffic to the spoofed destination thus letting the attacker listen / consume / utilize the traffic for other purposes. 
 
-Generally to avoid this, there are little or no solution. Generally the receiver must assume that a spoof must happen within a specific window to detect and block the traffic. The sender could change Mac addresses everytime they boot / initialize traffic / come out of sleep. This helps avoid getting spoofed or let an attacker "learn" about hardware macaddress early on using the data before. 
+Generally to avoid this, there are little or no solution. Generally the receiver must assume that a spoof must happen within a specific window to detect and block the traffic. The sender could change Mac addresses everytime they boot / initialize traffic / come out of sleep. This helps avoid getting spoofed or let an attacker "learn" about hardware macaddress early on using the data before.
 
+### Anonymizing the mac address
+
+Anonymizing the mac address sometimes help point out an attacker. An attacker would listen to this ARP request and tries to replay this over on the network with her/ his own mac address. This enables the firewall to detect an attack node and take further actions (black list for a time duration and so on).
+
+## Transmit path
+
+Transmit path of ARP is initiated by 
+
+1. A higher layer such as IPv4.
+2. An ARP request from a neighboring Host.
+
+### Higher layer query
+Upon a query for the destination mac address, resulting in a failure, an ARP request is initiated by the device. ARP request may be periodic in nature because the destination may be offline / unreachable / packet loss. Once an ARP reply is heard, no more ARP requests will be seen. Sometimes Gratituous ARPs may be seen as well.
+
+
+## Receive path
+
+
+
+## Linux kernel's ARP tables
+
+Linux kernel exposes the ARP entries in `/proc/net/arp`.
