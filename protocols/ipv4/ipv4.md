@@ -57,8 +57,13 @@ Some firewall disallow many ICMP frames, exceptions are echo request and echo re
 
 ## Use of TTL
 
+TTL is time to live, this is used to mark a packet's lifetime. On every hop, the TTL is reduced by 1 and sent. If the TTL on a particular node reaches 1, then it will be consumed. If the packet is not destined to the node, then it will be dropped by the node because TTL becomes 0.
+
 ## Subnet masks and addressing scheme
 
 
 
 
+## Transmit path
+
+## Receive path
