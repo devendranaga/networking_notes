@@ -47,6 +47,17 @@
 | 4 | Record route | Makes each router append its IP address |
 | 5 | Timestamp | Makes each router append its address and timestamp |
 
+## Use of DF bit
+
+Sometimes DF is used within the ICMP frames to discover the next hop distance or its TTL. This is used to perform Path MTU discovery. PMTU discovery is explained in further sections.
+
+DF means that the machines the packet goes through, cannot fragment that particular packet. If the machine cannot fragment the packet, it simply responds back with the ICMP fragmentation needed response.
+
+Some firewall disallow many ICMP frames, exceptions are echo request and echo reply. So if a fragmentation needed frame is sent by the destination, firewall before the host might've dropped it as well. It is required to configure firewall in such a way to allow the ICMP frame with fragmentation needed code.
+
+## Use of TTL
+
+## Subnet masks and addressing scheme
 
 
 
